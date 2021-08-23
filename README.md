@@ -14,3 +14,8 @@ ENVIRONMET
   DB_PLATFORM : 
   SERVER_RABBITMQ : Host Rabbit MQ
   
+TEST
+
+ curl --location --request GET http://localhost:8080/hit/test --header 'Accept: application/json'
+
+ curl --location --request GET http://localhost:8080/hit --header 'Accept: application/json'
