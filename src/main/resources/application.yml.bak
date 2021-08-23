@@ -7,17 +7,14 @@ server:
 spring:
   datasource:
     url: ${URL_BD}
-    username: ${USERNAME_BD}
-    password: ${PASS_BD}
-    driver-class-name: ${DRIVER_CLASS_NAME}
+    username: usr_inv
+    password: Invex123#
+    driver-class-name: oracle.jdbc.OracleDriver
   jpa:
-    database-platform: ${DB_PLATFORM}
+    database-platform: org.hibernate.dialect.Oracle12cDialect
     hibernate:
       ddl-auto: create-drop
-
-rabbitmq:
-  server:${SERVER_RABBITMQ}
-
+      
 logging:
   level:
     org:

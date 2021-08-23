@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import com.example.demo.components.CounterResponse;
 import com.example.demo.controller.CounterController;
@@ -19,23 +20,23 @@ class ProySbmqApplicationTests {
 	
 	@Test
 	void getKeyHitsTest() throws Exception {
-		CounterResponse resp = null;
+		ResponseEntity<CounterResponse> resp = null;
 		for(int i = 0; i < 5; i++) {
-			resp = controlador.setCounter("test98");
+			resp = controlador.setCounter("application/json","test98");
 		}
 		
-		assertThat(5L).isEqualByComparingTo(resp.getHits());
+		assertThat(5L).isEqualByComparingTo(resp.getBody().getHits());
 	}
 
 	@Test
 	void getListKeyHitsTest() throws Exception {
 		
 		for(int i = 0; i < 5; i++) {
-			controlador.setCounter("test96");
+			controlador.setCounter("application/json","test96");
 		}
-		controlador.setCounter("test97");
-		List<CounterResponse> respList = controlador.getCounter();
-		assertThat(2).isEqualByComparingTo(respList.size());
-		assertThat(1L).isEqualByComparingTo(respList.get(1).getHits());
+		controlador.setCounter("application/json","test97");
+		ResponseEntity<List<CounterResponse>> respList = controlador.getCounter("application/json");
+		assertThat(2).isEqualByComparingTo(respList.getBody().size());
+		assertThat(1L).isEqualByComparingTo(respList.getBody().get(1).getHits());
 	}
 }

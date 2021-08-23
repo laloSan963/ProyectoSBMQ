@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.KeyHitsEntity;
@@ -24,10 +25,13 @@ public class MQServiceImpl implements MQService {
 	@Autowired
 	private KeyHitsRepository keyHitsRepository;
 
+	@Value("${SERVER_RABBITMQ}")
+	private String serverRabbitMQ;
+	
 	@Override
 	public void sendMessageSave(String key,String queue) throws IOException, TimeoutException {
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost("localhost");
+		factory.setHost(serverRabbitMQ);
 
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
